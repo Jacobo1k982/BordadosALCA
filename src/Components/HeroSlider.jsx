@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaUserTie, FaRunning, FaSchool, FaTshirt } from "react-icons/fa";
+import { BsChevronDown } from "react-icons/bs";
 
 const videos = [
     {
@@ -14,100 +14,158 @@ const videos = [
     },
     {
         src: "/Video/118039-713887520_tiny.mp4",
-        title: "Productos de alta calidad",
-    }
+        title: "Uniformes escolares únicos",
+    },
 ];
 
 const HeroSlider = () => {
     const [current, setCurrent] = useState(0);
 
-    // ⏱️ Avance automático cada 3 segundos
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrent((prev) => (prev + 1) % videos.length);
-        }, 3000);
+        }, 5000);
         return () => clearInterval(interval);
     }, []);
 
-    const next = () => setCurrent((current + 1) % videos.length);
-    const prev = () => setCurrent((current - 1 + videos.length) % videos.length);
-
     return (
-        <section className="relative h-screen w-full overflow-hidden text-white bg-black">
-            {/* 🎥 Animación de video */}
-            <div className="absolute w-full h-full">
-                <AnimatePresence mode="wait">
-                    <motion.video
-                        key={videos[current].src}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1 }}
-                        className="absolute w-full h-full object-cover brightness-[0.4]"
-                    >
-                        <source src={videos[current].src} type="video/mp4" />
-                        Tu navegador no soporta video.
-                    </motion.video>
-                </AnimatePresence>
-            </div>
-
-            {/* Botones de navegación */}
-            <button
-                onClick={prev}
-                className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/70 p-3 rounded-full z-20"
+        <section className="relative pt-16 md:pt-20 h-screen w-full overflow-hidden text-white bg-black">
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="flex flex-col md:flex-row h-full"
             >
-                <FaChevronLeft />
-            </button>
-            <button
-                onClick={next}
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-black/40 hover:bg-black/70 p-3 rounded-full z-20"
-            >
-                <FaChevronRight />
-            </button>
+                {/* Imagen Principal */}
+                <div className="relative w-full md:w-[85%] h-[calc(100vh-80px)]">
+                    <img
+                        src="/Imagen/Hero/hero.png"
+                        alt="Imagen principal"
+                        className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent z-10" />
 
-            {/* Texto overlay */}
-            <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
-                <h1 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg">
-                    {videos[current].title}
-                </h1>
-                <p className="mt-4 text-lg md:text-2xl text-gray-200 max-w-2xl">
-                    Diseños únicos, materiales de calidad y compromiso en cada prenda.
-                </p>
-                <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                    <button className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-full shadow-lg transition">
-                        Ver Catálogo
-                    </button>
-                    <button className="px-6 py-3 border border-white hover:bg-white hover:text-gray-900 transition rounded-full font-medium">
-                        Cotiza tu diseño
-                    </button>
+                    {/* Contenido superpuesto */}
+                    <div className="absolute z-20 top-16 md:top-20 left-0 w-full h-[calc(100%-5rem)] flex flex-col justify-start items-center px-6 text-center">
+                        <AnimatePresence mode="wait">
+                            <motion.h1
+                                key={videos[current].title}
+                                initial={{ opacity: 0, y: -40 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 40 }}
+                                transition={{ duration: 0.9 }}
+                                className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-sky-400 via-fuchsia-500 to-pink-500 text-transparent bg-clip-text animate-pulse"
+                            >
+                                {videos[current].title}
+                            </motion.h1>
+                        </AnimatePresence>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="mt-4 text-lg md:text-2xl text-gray-200 max-w-2xl"
+                        >
+                            Diseños únicos, materiales de calidad y compromiso en cada prenda.
+                        </motion.p>
+
+                        <div className="mt-8 flex flex-row flex-wrap gap-2">
+                            <motion.button
+                                whileHover={{ scale: 1.1, boxShadow: "0 0 25px #3b82f6" }}
+                                whileTap={{ scale: 0.95 }}
+                                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg"
+                            >
+                                Ver Catálogo
+                            </motion.button>
+
+                            <motion.a
+                                whileHover={{ scale: 1.1, boxShadow: "0 0 25px white" }}
+                                whileTap={{ scale: 0.95 }}
+                                href="https://wa.me/506xxxxxxxx"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-6 py-3 border border-white hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full font-medium inline-block shadow-md"
+                            >
+                                Cotiza tu diseño
+                            </motion.a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                {/* Mini videos */}
+                <div
+                    className="w-full md:w-[20%] relative p-4 flex flex-col gap-6 overflow-auto"
+                    style={{
+                        backgroundImage: "url('/Imagen/Hero/hero.png')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                    }}
+                >
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-0" />
+                    <div className="relative z-10 flex flex-col gap-6">
+                        {videos.map((video, index) => (
+                            <motion.video
+                                key={video.src}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                onClick={() => setCurrent(index)}
+                                whileHover={{ scale: 1.05 }}
+                                className={`rounded-lg w-full h-32 object-cover cursor-pointer transition-all duration-300 border ${index === current
+                                    ? "border-blue-500 shadow-xl"
+                                    : "border-transparent"
+                                    }`}
+                            >
+                                <source src={video.src} type="video/mp4" />
+                                Tu navegador no soporta video.
+                            </motion.video>
+                        ))}
+                    </div>
+                </div>
+            </motion.div>
 
             {/* Categorías */}
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 py-4 px-6">
+            <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 }}
+                className="absolute bottom-14 left-0 right-0 bg-black/70 backdrop-blur-sm py-4 px-6 z-30"
+            >
                 <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-                    <div className="flex flex-col items-center">
-                        <FaUserTie className="text-2xl text-emerald-400 mb-1" />
-                        <span className="text-sm text-gray-300">Empresariales</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <FaRunning className="text-2xl text-emerald-400 mb-1" />
-                        <span className="text-sm text-gray-300">Deportivos</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <FaSchool className="text-2xl text-emerald-400 mb-1" />
-                        <span className="text-sm text-gray-300">Escolares</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <FaTshirt className="text-2xl text-emerald-400 mb-1" />
-                        <span className="text-sm text-gray-300">Personalizados</span>
-                    </div>
+                    {[
+                        { icon: <FaUserTie />, label: "Empresariales" },
+                        { icon: <FaRunning />, label: "Deportivos" },
+                        { icon: <FaSchool />, label: "Escolares" },
+                        { icon: <FaTshirt />, label: "Personalizados" },
+                    ].map(({ icon, label }) => (
+                        <motion.div
+                            key={label}
+                            whileHover={{ scale: 1.1 }}
+                            className="flex flex-col items-center text-gray-200"
+                        >
+                            <div className="text-2xl text-blue-400 mb-1">{icon}</div>
+                            <span className="text-sm">{label}</span>
+                        </motion.div>
+                    ))}
                 </div>
-            </div>
+            </motion.div>
+
+            {/* Scroll Down Indicator */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4 }}
+                className="absolute bottom-3 left-0 right-0 flex justify-center z-50"
+            >
+                <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="text-white text-2xl"
+                >
+                    <BsChevronDown />
+                </motion.div>
+            </motion.div>
         </section>
     );
 };

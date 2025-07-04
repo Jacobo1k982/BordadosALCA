@@ -31,9 +31,6 @@ const Footer = () => {
                             <a href="#categorias" className="hover:text-emerald-400">Categorías</a>
                         </li>
                         <li>
-                            <a href="#testimonios" className="hover:text-emerald-400">Testimonios</a>
-                        </li>
-                        <li>
                             <a href="#contacto" className="hover:text-emerald-400">Contacto</a>
                         </li>
                     </ul>
@@ -47,7 +44,7 @@ const Footer = () => {
                     <p>Tel: +506 8888 8888</p>
                     <div className="mt-4">
                         <a
-                            href="https://wa.me/50688888888"
+                            href="https://506/50688888888"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block bg-emerald-500 text-white px-4 py-2 rounded-full hover:bg-emerald-600 transition"

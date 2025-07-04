@@ -6,6 +6,12 @@ export default {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        width: "width",
+      },
+      animation: {
+        'pulse-slow': 'pulse 3s infinite',
+      },
       colors: {
         'fondo-principal': "gray-900",
       },
