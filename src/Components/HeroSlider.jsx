@@ -37,7 +37,7 @@ const HeroSlider = () => {
                 className="flex flex-col md:flex-row h-full"
             >
                 {/* Imagen Principal */}
-                <div className="relative w-full md:w-[85%] h-[calc(100vh-80px)]">
+                <div className="relative w-full md:w-[100%] h-[calc(100vh-80px)]">
                     <img
                         src="/Imagen/Hero/hero.png"
                         alt="Imagen principal"
@@ -92,37 +92,35 @@ const HeroSlider = () => {
                     </div>
                 </div>
 
-                {/* Mini videos */}
+                {/* Mini videos flotantes responsivos */}
                 <div
-                    className="w-full md:w-[20%] relative p-4 flex flex-col gap-6 overflow-auto"
-                    style={{
-                        backgroundImage: "url('/Imagen/Hero/hero.png')",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                    }}
+                    className={`
+    absolute z-30 bottom-36
+    flex gap-4
+    md:flex-col md:left-6 md:bottom-24
+    left-1/2 -translate-x-1/2 md:translate-x-0
+  `}
                 >
-                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm z-0" />
-                    <div className="relative z-10 flex flex-col gap-6">
-                        {videos.map((video, index) => (
-                            <motion.video
-                                key={video.src}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                onClick={() => setCurrent(index)}
-                                whileHover={{ scale: 1.05 }}
-                                className={`rounded-lg w-full h-32 object-cover cursor-pointer transition-all duration-300 border ${index === current
-                                    ? "border-blue-500 shadow-xl"
-                                    : "border-transparent"
-                                    }`}
-                            >
-                                <source src={video.src} type="video/mp4" />
-                                Tu navegador no soporta video.
-                            </motion.video>
-                        ))}
-                    </div>
+                    {videos.map((video, index) => (
+                        <motion.video
+                            key={video.src}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            onClick={() => setCurrent(index)}
+                            whileHover={{ scale: 1.1 }}
+                            className={`w-20 h-20 rounded-lg object-cover cursor-pointer transition-all duration-300 border-2 ${index === current
+                                    ? "border-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.8)]"
+                                    : "border-white/40 hover:border-blue-300"
+                                }`}
+                        >
+                            <source src={video.src} type="video/mp4" />
+                            Tu navegador no soporta video.
+                        </motion.video>
+                    ))}
                 </div>
+
             </motion.div>
 
             {/* Categorías */}
@@ -132,7 +130,7 @@ const HeroSlider = () => {
                 transition={{ delay: 1 }}
                 className="absolute bottom-14 left-0 right-0 bg-black/70 backdrop-blur-sm py-4 px-6 z-30"
             >
-                <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+                <div className="max-w-6xl mx-auto grid grid-cols-4 sm:grid-cols-4 gap-6 text-center">
                     {[
                         { icon: <FaUserTie />, label: "Empresariales" },
                         { icon: <FaRunning />, label: "Deportivos" },
