@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaUserTie, FaRunning, FaSchool, FaTshirt } from "react-icons/fa";
+import { FaUserTie, FaRunning, FaSchool, FaTshirt, FaShoppingBag, FaWhatsapp } from "react-icons/fa";
 import { BsChevronDown } from "react-icons/bs";
 
 const videos = [
@@ -47,34 +47,39 @@ const HeroSlider = () => {
 
                     {/* Contenido superpuesto */}
                     <div className="absolute z-20 top-16 md:top-20 left-0 w-full h-[calc(100%-5rem)] flex flex-col justify-start items-center px-6 text-center">
-                        <AnimatePresence mode="wait">
-                            <motion.h1
-                                key={videos[current].title}
-                                initial={{ opacity: 0, y: -40 }}
+                        {/* Contenedor fijo para evitar movimiento */}
+                        <div className="min-h-[120px] md:min-h-[160px] flex flex-col justify-center">
+                            <AnimatePresence mode="wait">
+                                <motion.h1
+                                    key={videos[current].title}
+                                    initial={{ opacity: 0, y: -40 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 40 }}
+                                    transition={{ duration: 0.9 }}
+                                    className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-sky-400 via-fuchsia-500 to-pink-500 text-transparent bg-clip-text animate-pulse"
+                                >
+                                    {videos[current].title}
+                                </motion.h1>
+                            </AnimatePresence>
+
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 40 }}
-                                transition={{ duration: 0.9 }}
-                                className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-sky-400 via-fuchsia-500 to-pink-500 text-transparent bg-clip-text animate-pulse"
+                                transition={{ delay: 0.5 }}
+                                className="mt-2 text-lg md:text-2xl text-gray-200 max-w-2xl"
                             >
-                                {videos[current].title}
-                            </motion.h1>
-                        </AnimatePresence>
+                                Diseños únicos, materiales de calidad y compromiso en cada prenda.
+                            </motion.p>
+                        </div>
 
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                            className="mt-4 text-lg md:text-2xl text-gray-200 max-w-2xl"
-                        >
-                            Diseños únicos, materiales de calidad y compromiso en cada prenda.
-                        </motion.p>
-
-                        <div className="mt-8 flex flex-row flex-wrap gap-2">
+                        {/* Botones con íconos */}
+                        <div className="mt-8 flex flex-row flex-wrap justify-center gap-2">
                             <motion.button
                                 whileHover={{ scale: 1.1, boxShadow: "0 0 25px #3b82f6" }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg"
+                                className="flex items-center gap-2 text-sm md:text-base px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg"
                             >
+                                <FaShoppingBag className="text-base md:text-lg" />
                                 Ver Catálogo
                             </motion.button>
 
@@ -84,8 +89,9 @@ const HeroSlider = () => {
                                 href="https://wa.me/506xxxxxxxx"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="px-6 py-3 border border-white hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full font-medium inline-block shadow-md"
+                                className="flex items-center gap-2 text-sm md:text-base px-4 py-2 md:px-6 md:py-3 border border-white hover:bg-white hover:text-gray-900 transition-all duration-300 rounded-full font-medium inline-block shadow-md"
                             >
+                                <FaWhatsapp className="text-green-400 text-base md:text-lg" />
                                 Cotiza tu diseño
                             </motion.a>
                         </div>
@@ -95,11 +101,11 @@ const HeroSlider = () => {
                 {/* Mini videos flotantes responsivos */}
                 <div
                     className={`
-    absolute z-30 bottom-36
-    flex gap-4
-    md:flex-col md:left-6 md:bottom-24
-    left-1/2 -translate-x-1/2 md:translate-x-0
-  `}
+            absolute z-30 bottom-36
+            flex gap-4
+            md:flex-col md:left-6 md:bottom-24
+            left-1/2 -translate-x-1/2 md:translate-x-0
+          `}
                 >
                     {videos.map((video, index) => (
                         <motion.video
@@ -120,7 +126,6 @@ const HeroSlider = () => {
                         </motion.video>
                     ))}
                 </div>
-
             </motion.div>
 
             {/* Categorías */}
